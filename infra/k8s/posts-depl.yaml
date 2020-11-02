@@ -1,4 +1,3 @@
-# initial config -- not in use 
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -15,4 +14,4 @@ spec:
         spec:
             containers:
                 - name: posts
-                  image: emasys/posts:0.0.1
+                  image: emasys/posts
