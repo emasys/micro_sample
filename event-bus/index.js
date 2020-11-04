@@ -5,6 +5,11 @@ const axios = require('axios');
 const app = express();
 app.use(bodyParser.json());
 
+const servicesURI = {
+  eventBus: 'event-bus-srv:4005',
+  posts: 'posts-clusterip-srv:4000'
+}
+
 const events = [];
 
 app.post('/events', (req, res) => {
@@ -12,10 +17,10 @@ app.post('/events', (req, res) => {
 
   events.push(event);
 
-  axios.post('http://localhost:4000/events', event);
-  axios.post('http://localhost:4001/events', event);
-  axios.post('http://localhost:4002/events', event);
-  axios.post('http://localhost:4003/events', event);
+  axios.post(`http://${servicesURI.posts}/events`, event);
+  // axios.post('http://localhost:4001/events', event);
+  // axios.post('http://localhost:4002/events', event);
+  // axios.post('http://localhost:4003/events', event);
 
   res.send({ status: 'OK' });
 });
@@ -25,5 +30,5 @@ app.get('/events', (req, res) => {
 });
 
 app.listen(4005, () => {
-  console.log('Listening on 4005');
+  console.log('Listening on event-bus-srv:4005');
 });
