@@ -19,6 +19,7 @@ app.post('/events', (req, res) => {
   const event = req.body;
 
   events.push(event);
+  console.log(`now processing ${JSON.stringify(event)}`)
 
   axios.post(`http://${servicesURI.posts}/events`, event);
   axios.post(`http://${servicesURI.query}/events`, event);
