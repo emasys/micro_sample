@@ -7,7 +7,10 @@ app.use(bodyParser.json());
 
 const servicesURI = {
   eventBus: 'event-bus-srv:4005',
-  posts: 'posts-clusterip-srv:4000'
+  posts: 'posts-clusterip-srv:4000',
+  query: 'query-srv:4002',
+  comments: 'comments-srv:4001',
+  moderation: 'moderation-srv:4003'
 }
 
 const events = [];
@@ -18,9 +21,9 @@ app.post('/events', (req, res) => {
   events.push(event);
 
   axios.post(`http://${servicesURI.posts}/events`, event);
-  // axios.post('http://localhost:4001/events', event);
-  // axios.post('http://localhost:4002/events', event);
-  // axios.post('http://localhost:4003/events', event);
+  axios.post(`http://${servicesURI.query}/events`, event);
+  axios.post(`http://${servicesURI.comments}/events`, event);
+  axios.post(`http://${servicesURI.moderation}/events`, event);
 
   res.send({ status: 'OK' });
 });
